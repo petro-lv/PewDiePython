@@ -1,0 +1,6 @@
+bin/
+obj/
+venv/
+.idea/
+*.sln.DotSettings.user
+__pycache__/
