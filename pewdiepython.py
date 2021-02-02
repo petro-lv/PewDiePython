@@ -1,11 +1,11 @@
-
+import os
 import instaloader
 
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from msrest.authentication import CognitiveServicesCredentials
 
-subscription_key = ""
-endpoint = ""
+subscription_key = os.getenv('COMPUTERVISION_KEY')
+endpoint = os.getenv('COMPUTERVISION_ENDPOINT')
 
 computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))
 
