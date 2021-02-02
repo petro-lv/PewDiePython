@@ -1,6 +1,8 @@
 import os
 import instaloader
+import json
 
+from json import JSONEncoder
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from msrest.authentication import CognitiveServicesCredentials
 
@@ -70,8 +72,11 @@ class Result:
         self.color = color
 
 
-
-
+class ResultEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Result):
+            return {"color": obj.color, "url": obj.url}
+        return json.JSONEncoder.default(self, obj)
 
 
 

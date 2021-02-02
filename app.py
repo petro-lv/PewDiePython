@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify
-from pewdiepython import User, User_logged
+from pewdiepython import User, User_logged, ResultEncoder
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
+app.json_encoder = ResultEncoder
 
 instagramUsername = 'username'
 instagramUsernameHeader = 'Insta-Username'
@@ -22,7 +23,7 @@ def analyze():
         return "Error", 400
 
 
-@app.route('api/instagram/analyze-top', methods=['GET'])
+@app.route('/api/instagram/analyze-top', methods=['GET'])
 def analyze_following():
     if instagramUsernameHeader and instagramPasswordHeader in request.headers:
         username = str(request.headers.get(instagramUsernameHeader))
