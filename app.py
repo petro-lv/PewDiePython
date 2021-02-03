@@ -9,6 +9,7 @@ app.json_encoder = ResultEncoder
 cors = CORS(app)
 
 instagramUsername = 'username'
+instagramMaxPosts = 'maxPosts'
 instagramUsernameHeader = 'Insta-Username'
 instagramPasswordHeader = 'Insta-Password'
 
@@ -19,8 +20,12 @@ def analyze():
     if instagramUsername in request.args:
         username = str(request.args[instagramUsername])
 
-        user = User(username)
-        colors = user.analyze()
+        max_posts = 3
+        if instagramMaxPosts in request.args:
+            max_posts = int(request.args[instagramMaxPosts])
+
+        user = User(username, max_posts)
+        colors = user.analyze(max_posts)
 
         return jsonify(colors)
     else:

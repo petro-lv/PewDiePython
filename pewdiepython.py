@@ -23,7 +23,7 @@ def iterate_until(iterable, max_iterations):
 
 class User:
 
-    def __init__(self, username):
+    def __init__(self, username, max_posts=3):
 
         instance = instaloader.Instaloader()
 
@@ -31,17 +31,17 @@ class User:
 
         posts = instaloader.Profile.from_username(instance.context, self.username).get_posts()
 
-        self.photos = [i.url for i in iterate_until(posts, 3)] #Список посилань на фотографії
+        self.photos = [i.url for i in iterate_until(posts, max_posts)] #Список посилань на фотографії
 
 
 
     #Аналіз фотографій користувача(не виникає помилок із відео та багатьма фотографіями)
-    def analyze(self):
+    def analyze(self, max_posts=3):
 
         trending_colors = []
         remote_image_features = ["color"]
 
-        for i in range(3):
+        for i in range(max_posts):
             remote_image_url = self.photos[i]
             detect_color_results_remote = computervision_client.analyze_image(remote_image_url, remote_image_features)
             trending_colors.append(Result(detect_color_results_remote.color.accent_color, remote_image_url))
