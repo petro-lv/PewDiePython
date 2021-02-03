@@ -44,7 +44,7 @@ class User:
         for i in range(3):
             remote_image_url = self.photos[i]
             detect_color_results_remote = computervision_client.analyze_image(remote_image_url, remote_image_features)
-            trending_colors.append(Result(detect_color_results_remote.color.dominant_color_foreground, remote_image_url))
+            trending_colors.append(Result(detect_color_results_remote.color.accent_color, remote_image_url))
 
         return trending_colors
 
