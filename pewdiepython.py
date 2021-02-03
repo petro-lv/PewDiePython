@@ -12,6 +12,15 @@ endpoint = os.getenv('COMPUTERVISION_ENDPOINT')
 computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))
 
 
+def iterate_until(iterable, max_iterations):
+    index = 0
+    for value in iterable:
+        index += 1
+        yield value
+        if index > max_iterations:
+            break
+
+
 class User:
 
     def __init__(self, username):
@@ -22,7 +31,7 @@ class User:
 
         posts = instaloader.Profile.from_username(instance.context, self.username).get_posts()
 
-        self.photos = [i.url for i in posts] #Список посилань на фотографії
+        self.photos = [i.url for i in iterate_until(posts, 3)] #Список посилань на фотографії
 
 
 
